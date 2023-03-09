@@ -1,0 +1,507 @@
+﻿@model MainViewModel
+
+@{ Layout = "_LayoutStore"; }
+
+@section popup {
+
+    <div class="premium-popup" style="display:none;">
+
+        <div class="be-premium-menu" style="position: relative;">
+            <div class="close-popup" style="position: absolute; right: 10px; top: 10px;">
+                <img src="https://www.svgrepo.com/show/178323/cross-close.svg" width="15px" height="15px" alt="">
+            </div>
+            <h3>Elanı premium et</h3>
+
+
+            <div class="day-counter">
+                <p>Elanı neçə günlük premium etmək istəyirsiz?</p>
+                <input type="number" id="day-select-option" value="1" min="1"> <span>gün</span>
+            </div>
+            <div class="money-counter">
+                <p>Balansdan çıxılacaq ümumi məbləğ : </p>
+                <span>1</span> <span>AZN</span>
+            </div>
+            <div class="buttont-premium">
+                <button type="button" id="acceptPremium" class="accept-btn">
+                    <span class="accept-btn-text">Təsdiqlə</span>
+                </button>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="premium-popup" style="display:none;">
+        <div class="be-premium-menu" style="position: relative;">
+            <div class="close-popup" style="position: absolute; right: 10px; top: 10px;">
+                <img src="https://www.svgrepo.com/show/178323/cross-close.svg" width="15px" height="15px" alt="">
+            </div>
+            <h3>Elanı irəli çək</h3>
+
+
+            <div class="day-counter">
+                <p>Elanınız 1 günlük irəli çəkiləcək</p>
+            </div>
+            <div class="money-counter">
+                <p>Balansdan çıxılacaq ümumi məbləğ : </p>
+                <span>1</span> <span>AZN</span>
+            </div>
+            <div class="buttont-premium">
+                <button type="button" id="acceptFirst" class="accept-btn">
+                    <span class="accept-btn-text">Təsdiqlə</span>
+                </button>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="premium-popup" style="display:none;">
+        <div class="be-premium-menu" style="position: relative;">
+            <div class="close-popup" style="position: absolute; right: 10px; top: 10px;">
+                <img src="https://www.svgrepo.com/show/178323/cross-close.svg" width="15px" height="15px" alt="">
+            </div>
+            <h3>Elanı silmək</h3>
+
+
+            <div class="day-counter">
+                <p>Elanınızı silmək istədiyinizdən əminsiniz?</p>
+            </div>
+
+            <div class="buttont-delete">
+                <button type="button" class="accept-btn">
+                    <span class="accept-btn-text">Təsdiqlə</span>
+                </button>
+            </div>
+
+
+        </div>
+
+    </div>
+}
+
+
+@foreach (var item in Model.Products)
+{
+<div id="sync1" class="owl-carousel owl-theme">
+
+    @foreach (var imageProduct in item.ProductImages)
+    {
+<div class="small-prdct-img-col">
+    
+        
+
+
+    <img src="~/photouploads/ProductImages/@imageProduct.Image.Path" alt="">
+
+    @{ bool yoxla = false; }
+    @foreach (var liked in ViewBag.LikedProducts)
+    {
+        if (User.Identity.Name != null)
+        {
+            if (liked.UserId == ViewBag.nowUser.Id)
+            {
+                yoxla = true;
+                break;
+            }
+        }
+
+    }
+
+    @if (yoxla)
+    {
+
+
+<button class="add_wishlist_btn active">
+    <svg viewBox="0 0 24 24">
+        <use xlink:href="#heart" /> <!-- filled heart -->
+        <use xlink:href="#heart" /> <!-- outline heart -->
+    </svg>
+    <svg class="hide" viewBox="0 0 24 24">
+        <defs>
+            <path id="heart" d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z" />
+        </defs>
+    </svg>
+</button> }
+else
+{
+<button class="add_wishlist_btn">
+    <svg viewBox="0 0 24 24">
+        <use xlink:href="#heart" /> <!-- filled heart -->
+        <use xlink:href="#heart" /> <!-- outline heart -->
+    </svg>
+    <svg class="hide" viewBox="0 0 24 24">
+        <defs>
+            <path id="heart" d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z" />
+        </defs>
+    </svg>
+</button>}
+
+
+
+</div>}
+
+
+</div>
+
+                <div id="sync2" class="owl-carousel owl-theme">
+                    @foreach (var images in item.ProductImages)
+                    {
+
+                        <div class="small-prdct-img-col">
+
+                            <img src="~/photouploads/ProductImages/@images.Image.Path" class="small-prdct-img" width="100%" alt="">
+
+                        </div> 
+                     }
+                </div>
+
+
+                                <div class="product-header-div">
+                                    <div class="price-header-main">
+
+                                        <div class="price-box-main">
+                                            <div class="price-box">
+
+                                                <span class="price-count">@item.Price</span><span class="price-azn">AZN</span>
+                                                <input style="display: none;" id="singleProductId" value="@item.Id" />
+                                                @if (User.Identity.Name != null)
+                                                {
+                                <input style="display: none;" id="userId" value="@ViewBag.nowUser.Id" /> }
+                            else
+                            {
+            <input style="display: none;" id="userId" value="0" />}
+                                            </div>
+                                        </div>
+                                        <div class="header-product-main">
+                                            <div class="header-product">
+
+                                                <span class="title-of-product">@item.Name</span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                    @if (User.Identity.Name != null)
+                                    {
+                    @if (item.CreatedById == ViewBag.nowUser.Id)
+                    {
+                        <div class="icons-in-header">
+                            <div class="options-for-store-main">
+                                <div class="options-for-store">
+                                    <button class="option-for-store-button" id="be-premium">
+                                        <img src="../../Main/images/asist-imgs/diamond-svgrepo-com.svg" alt="" srcset="" style="margin: 0 5px 3px 0;">
+                                        <p style="margin: 0 !important;">Elani Premium et</p>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="options-for-store-main">
+                                <div class="options-for-store">
+                                    <button class="option-for-store-button" id="be-first">
+                                        <img src="../../Main/images/asist-imgs/upward.png" alt="" srcset="" style="margin: 0 5px 3px 0;">
+                                        <p style="margin: 0 !important;">Elani ireli cek</p>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="options-for-store-main">
+                                <div class="options-for-store">
+                                    <button class="option-for-store-button" onclick="removeEntity(event, @item.Id, '@item.Name')">
+                                        <img src="../../Main/images/asist-imgs/icons8-remove-48.png" alt="" srcset="" style="margin: 0 5px 3px 0;">
+
+                                        <p style="margin: 0 !important;">Elani sil</p>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    }
+
+                                </div>
+
+
+                                                <div class="product-details">
+                                                    <div class="shop-details-main">
+                                                        <div class="shop-details">
+                                                            <div style="width: 270px;">
+                                                                <div class="shop-image">
+                                                                    <div class="img-of-brand-main">
+
+                                                                        <img class="img-of-brand" src="~/photouploads/Shopimages/@ViewBag.Shop.ProfileImg">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="name-of-store-main">
+
+                                                                    <div class="name-of-store">
+                                                                        <fieldset class="fieldset_name">
+
+                                                                            <a class="attch-to-shop-page" asp-controller="store" asp-action="StoreSingle" asp-route-id="@ViewBag.Shop.Id"><em>@ViewBag.Shop.shopName</em></a>
+                                                                            <legend class="legend-name-store">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-gem" viewBox="0 -1 16 16">
+                                                                                    <path d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6l3-4zm11.386 3.785-1.806-2.41-.776 2.413 2.582-.003zm-3.633.004.961-2.989H4.186l.963 2.995 5.704-.006zM5.47 5.495 8 13.366l2.532-7.876-5.062.005zm-1.371-.999-.78-2.422-1.818 2.425 2.598-.003zM1.499 5.5l5.113 6.817-2.192-6.82L1.5 5.5zm7.889 6.817 5.123-6.83-2.928.002-2.195 6.828z" />
+                                                                                </svg>
+                                                                                Premium
+                                                                            </legend>
+                                                                        </fieldset>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="awm-name">
+                                                                    <a href="#">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-fill" viewBox="0 0 16 16">
+                                                                            <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z" />
+                                                                        </svg><span>@ViewBag.Shop.shopLocation</span>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="contact-infos-main">
+                                                                    <div class="contact-info-header">
+                                                                        <span>
+                                                                            Əlaqə məlumatları
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="contact-info">
+                                                                        <span>
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                                                                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span><a href="#">@ViewBag.Shop.shopNumber</a></span>
+                                                                    </div>
+                                                                    <div class="contact-info">
+                                                                        <span>
+                                                                            <img src="../../Main/images/asist-imgs/tiktok.png" alt="">
+                                                                        </span>
+                                                                        <span><a href="#">@ViewBag.Shop.tiktokLink</a></span>
+                                                                    </div>
+                                                                    <div class="contact-info">
+                                                                        <span>
+                                                                            <img src="../../Main/images/asist-imgs/instagram.png" alt="">
+                                                                        </span>
+                                                                        <span><a href="#">@ViewBag.Shop.instagramLink</a></span>
+                                                                    </div>
+                                                                    <div class="contact-info">
+                                                                        <span>
+                                                                            <img src="../../Main/images/asist-imgs/whatsapp.png  " alt="">
+                                                                        </span>
+                                                                        <span><a href="#">@ViewBag.Shop.whatsappNumber</a></span>
+                                                                    </div>
+                                                                    <div class="contact-info">
+                                                                        <a asp-controller="store" asp-action="StoreSingle" asp-route-id="@ViewBag.Shop.Id" class="all-ads-contact">Butun Elanlar</a>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="sep-product-details">
+                                                                <fieldset class="propertied-div-fs">
+                                                                    <legend>Haqqinda</legend>
+                                                                    <table class="properties">
+                                                                        <tr class="table-rows">
+                                                                            <td class="categories">Kateqoiya</td>
+                                                                            <td class="sub-details">@item.Kateqoriya</td>
+                                                                        </tr>
+                                                                        <tr class="table-rows">
+                                                                            <td class="categories">Eyyar</td>
+                                                                            <td class="sub-details">
+                                                                                @item.ProductEyar.FirstOrDefault().Eyar.EyarOlcusu
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="table-rows">
+                                                                            <td class="categories">Ceki</td>
+                                                                            <td class="sub-details">@item.Weight gr</td>
+                                                                        </tr>
+                                                                        @if (item.HasDiamond)
+                                                                        {
+                                                        <tr class="table-rows">
+                                                            <td class="categories">brilliaNT</td>
+                                                            <td class="sub-details">@item.CountDiamond ct</td>
+                                                        </tr>
+}
+
+
+                                                                    </table>
+                                                                </fieldset>
+                                                                <div class="addditional-information">
+                                                                    @item.aboutProduct
+
+                                                                </div>
+                                                                <div class="additional_info" style="display: flex; align-items: center; flex-wrap: wrap; height: fit-content; justify-content: space-between;">
+                                                                    <div class="must-read-div">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                                                                            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                                                                            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+                                                                        </svg> Məhsul üçün heç bir səbəblə  beh göndərməyin
+                                                                    </div>
+                                                                    <button type="button" class="wp-message">
+                                                                        <span class="wp-message-icon">
+                                                                            <img src="../../Main/images/asist-imgs/whatsapp-svgrepo-com.svg" alt="">
+                                                                        </span>
+                                                                        <span class="wp-message-text">
+                                                                            <span>Satıcıya mesaj göndər</span>
+                                                                        </span>
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </div>}
+
+
+
+
+<div class="vip-products-text-area">
+    <div class="vip-child-div">
+        <div class="vip-text">Oxşar elanlar</div>
+        <div class="all-vip-btn"><button class="btn-shw-all-vip">Butun oxşar elanlar</button></div>
+    </div>
+</div>
+<div class="praducts">
+
+    @foreach (var item in Model.OxsarProducts)
+    {
+<a asp-controller="Store" asp-action="ProductSingle" asp-route-id="@item.Id" style="text-decoration: none;">
+    <div class="container">
+
+        <div class="image">
+            <img src="~/photouploads/ProductImages/@item.ProductImages.FirstOrDefault().Image.Path" alt="">
+        </div>
+        <div class="info">
+
+            <div class="price-vip">
+                <span>@item.Price AZN</span>
+                @if (item.PremiumProduct == true)
+                {
+<i class="fa-solid fa-gem" style="color: #C1957C;"></i>}
+            </div>
+
+            <div class="prob-weight-div">
+
+                <div class="prob">
+                    @item.ProductEyar.FirstOrDefault().Eyar.EyarOlcusu
+                </div>
+                <div class="weight">@item.Weight gr</div><span class="sep-w-c">/</span>
+                @if (item.HasDiamond)
+                {
+<div class="carat">@item.CountDiamond ct</div>}
+
+            </div>
+            <div class="title-of-product">@item.aboutProduct</div>
+
+            <div class="time">Bakı, @item.CreatedDate.ToString("MMM d, yyyy")</div>
+        </div>
+    </div>
+</a>}
+
+
+</div>
+
+
+
+
+@section js {
+    <script>
+
+        var productId = document.querySelector('#singleProductId').value;
+        var userId = document.querySelector('#userId').value;
+
+
+        const acceptPremium = document.querySelector('#acceptPremium');
+        const acceptFirst = document.querySelector('#acceptFirst');
+
+        acceptPremium.addEventListener('click', function () {
+            const dayPremium = document.querySelector('#day-select-option').value;
+            $.ajax({
+                    url: "@Url.Action("PremiumProduct", "account")",
+                    data: {
+                        productId: productId,
+                        dayPremium: dayPremium
+                    },
+
+
+                    dataType: "json",
+                    type: "post",
+                    success: function (data) {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        }
+                        else if (data.status == 300) {
+                            alert("Balansda kifayət qədər məbləğ yoxdur!");
+                        }
+                        else if (data.status == 100) {
+                            alert("Bu məhsul premiumdur!");
+                        }
+                    }
+
+                })
+        })
+
+        acceptFirst.addEventListener('click', function () {
+            $.ajax({
+                    url: "@Url.Action("FirstProduct", "account")",
+                    data: {
+                        productId: productId
+                    },
+
+
+                    dataType: "json",
+                    type: "post",
+                    success: function (data) {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        }
+                        else if (data.status == 300) {
+                            alert("Balansda kifayət qədər məbləğ yoxdur!");
+                        }
+                        else if (data.status == 100) {
+                            alert("Bu məhsul irəliçəkilib!");
+                        }
+                    }
+
+                })
+        })
+
+
+
+
+    const wishlistBtn = document.querySelector('.add_wishlist_btn');
+
+
+        wishlistBtn.addEventListener('click', function () {
+
+            if (userId != 0) {
+                $.ajax({
+                    url: "@Url.Action("toLike", "homepage")",
+                    data: {
+                        productId: productId
+                    },
+
+
+                    dataType: "json",
+                    type: "post",
+                    success: function (data) {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        }
+                    }
+
+                })
+            }
+            else if (userId == 0) {
+                window.location.href = "/signin.html";
+            }
+
+
+
+});
+    </script>
+}

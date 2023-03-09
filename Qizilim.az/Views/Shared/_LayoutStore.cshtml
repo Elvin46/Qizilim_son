@@ -1,0 +1,387 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Main/global.css">
+    <link rel="stylesheet" href="~/Main/carousel.css">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="~/Main/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="~/admin/assets/libs/toastr.js/toastr.min.css" rel="stylesheet" />
+    <style>
+        .form-select {
+            min-width: 250px;
+            min-height: 50px;
+        }
+    </style>
+    @RenderSection("css", required: false)
+
+
+</head>
+
+<body>
+
+    @RenderSection("popup", required: false)
+
+    <header>
+        <div class="main-top">
+            <div class="logo-icons">
+                <div class="logo">
+                    <a asp-controller="homepage" asp-action="index" class="logo-txt">Qizilim.az</a>
+                </div>
+                <div class="icons">
+                    <!-- <input type="search" class="search-box" name="search" id="search"> -->
+
+                    <a class="icons-top-a search" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+                            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-search-17" viewBox="0 0 40 40">
+                                <path d="M35.567 31.158L28.6 24.192c1.634-2.465 2.584-5.42 2.584-8.6C31.184 6.983 24.204 0 15.592 0 6.982 0 0 6.98 0 15.593c0 8.61 6.98 15.592 15.592 15.592 3.178 0 6.134-.95 8.6-2.583l10.24 10.24c1.173 1.175 3.077 1.174 4.252 0l.155-.156c1.18-1.182 1.175-3.08 0-4.254l-2.17-2.172-1.102-1.104v.002zm-1.103 1.102l-6.022-6.02c-.388-.39-1.024-.39-1.416.002l-.785.785c-.393.394-.393 1.027-.003 1.417l6.022 6.02 2.204-2.204zm1.103 1.103l2.488 2.488c.39.392.39 1.024-.003 1.418l-.785.785c-.393.392-1.028.392-1.417.004l-2.488-2.49 2.205-2.204zm-19.975-3.737c7.75 0 14.033-6.283 14.033-14.033 0-7.75-6.283-14.034-14.033-14.034C7.842 1.56 1.56 7.84 1.56 15.592c0 7.75 6.282 14.033 14.032 14.033zm0-25.728c-.645 0-1.284.053-1.912.156-.425.07-.713.47-.643.896.07.425.47.712.896.642.545-.09 1.1-.135 1.66-.135.43 0 .78-.35.78-.78 0-.43-.35-.78-.78-.78zm-5.31 1.273c-3.885 1.984-6.384 5.98-6.384 10.423 0 .43.35.78.78.78.43 0 .78-.35.78-.78 0-3.85 2.165-7.314 5.533-9.034.385-.196.537-.666.34-1.05-.195-.383-.664-.535-1.048-.34z"
+                                      fill-rule="evenodd" />
+                            </symbol>
+                            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-clear-3" viewBox="0 0 20 20">
+                                <path d="M8.114 10L.944 2.83 0 1.885 1.886 0l.943.943L10 8.113l7.17-7.17.944-.943L20 1.886l-.943.943-7.17 7.17 7.17 7.17.943.944L18.114 20l-.943-.943-7.17-7.17-7.17 7.17-.944.943L0 18.114l.943-.943L8.113 10z" fill-rule="evenodd" />
+                            </symbol>
+                        </svg>
+
+                        <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-custom">
+                            <div role="search" class="sbx-twitter__wrapper">
+                                <input type="search" name="search" placeholder="Search your website" autocomplete="off" required="required" class="sbx-custom__input" id="search_input">
+                                <button type="submit" title="Submit your search query." class="sbx-custom__submit" id="search_button">
+                                    <svg role="img" aria-label="Search">
+                                        <use xlink:href="#sbx-icon-search-17"></use>
+                                    </svg>
+                                </button>
+                                <button type="reset" title="Clear the search query." class="sbx-custom__reset">
+                                    <svg role="img" aria-label="Reset" id="reset_button">
+                                        <use xlink:href="#sbx-icon-clear-3"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                        <script type="text/javascript">
+                            document.querySelector('.searchbox [type="reset"]').addEventListener('click', function () { this.parentNode.querySelector('input').focus(); });
+                        </script>
+                    </a>
+
+                    <a class="icons-top-a" asp-controller="homepage" asp-action="liked">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart"
+                             viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                        </svg>
+                    </a>
+                    @if (User.Identity.Name != null)
+                    {
+        <div class="user_info">
+            <button class="user_email"> <a asp-controller="account" asp-action="myStore" style="color: #C1957C; text-decoration: none;">@User.Identity.Name</a><i class="fa-solid fa-angle-down"></i></button>
+            <ul>
+                <li><a asp-controller="account" asp-action="signout" style="text-decoration: none; color: inherit; font-size: 16px;">Hesabdan cix</a></li>
+                <li><a asp-controller="account" asp-action="myStore" style="text-decoration: none; color: inherit; font-size: 16px;">Hesabi idare et</a></li>
+            </ul>
+        </div> }
+    else
+    {
+<a class="icons-top-a" id="loginRegister" asp-controller="account" asp-action="signin">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person"
+         viewBox="0 0 16 16">
+        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+    </svg>
+</a>}
+                    <input type="checkbox" id="hamburger-input" class="burger-shower" />
+                    <label id="hamburger-menu" for="hamburger-input">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="second-top">
+            <nav id="main-menu">
+                <div id="close-menu-btn">
+                    <img src="https://www.svgrepo.com/show/178323/cross-close.svg" width="15px" height="15px" alt="">
+                </div>
+                <ul>
+                    <li><a asp-controller="homepage" asp-action="index">Son Elanlar</a></li>
+                    <li><a asp-controller="homepage" asp-action="vipproducts">Premium elanlar</a></li>
+                    <li><a asp-controller="store" asp-action="stores">Mağazalar</a></li>
+                    <!-- <li><a href="../necklace/necklace.html">Haqqımızda</a></li> -->
+                    <!-- <li><a href="#">Sirgalar</a></li>
+                    <li><a href="#">Destler</a></li> -->
+                    <li>
+                        <a class="nav-link" id="detailed-search" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" fill="currentColor"
+                                 class="bi bi-filter-square" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a+1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                <path d="M6 11.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                            </svg> Ətraflı Axtarış
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+
+
+        </div>
+        <div class="filter-area" id="filter-area">
+            <table>
+                <tr>
+                    <td>
+                        <details class="custom-select type">
+                            <summary class="radios">
+                                <input type="radio" name="item-type" id="default" title-type="Nov" checked>
+                                <input type="radio" name="item-type" id="item1" title-type="Sep">
+                                <input type="radio" name="item-type" id="item2" title-type="Uzuk">
+                                <input type="radio" name="item-type" id="item3" title-type="Qolbaq">
+                                <input type="radio" name="item-type" id="item4" title-type="Dest">
+                                <input type="radio" name="item-type" id="item5" title-type="Lorem">
+                            </summary>
+                            <ul class="selector-list">
+
+                                <li>
+                                    <label class="selector-label" for="item1">Sep</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item2">Uzuk</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item3">Qolbaq</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item4">Dest</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item5">Lorem</label>
+                                </li>
+                            </ul>
+                        </details>
+
+                    </td>
+                    <td>
+                        <label class="filter-header">Əyar : <span id="adjust"></span></label>
+                        <div class="radio-filter">
+
+                            <input type="checkbox" class="radio-filter_input adjust" name="diamond" id="myRadio1"><label class="radio-filter_label" for="myRadio1">583</label>
+                            <input type="checkbox" class="radio-filter_input adjust" name="diamond" id="myRadio2"><label class="radio-filter_label" for="myRadio2"> 585 </label>
+                            <input type="checkbox" class="radio-filter_input adjust" name="diamond" id="myRadio3"><label class="radio-filter_label" for="myRadio3"> 750</label>
+                            <input type="checkbox" class="radio-filter_input adjust" name="diamond" id="myRadio4"><label class="radio-filter_label" for="myRadio4">916</label>
+                        </div>
+
+                    </td>
+                    <td>
+                        <label class="filter-header" style="margin-bottom: 8px;">Çəki <span class="fltr-header-detail">(qram)</span> : </label>
+                        <div class="input_number_div">
+                            <input class="input_number" type="number" name="min-price" placeholder="Min" id="input_number_min">
+                            <input class="input_number" type="number" name="min-price" placeholder="Max" id="">
+                        </div>
+
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+
+                        <details class="custom-select diamond">
+                            <summary class="radios">
+                                <input type="radio" name="item-diamond" id="default" title-diamond="Brilliant" checked>
+                                <input type="radio" name="item-diamond" id="item31" title-diamond="Hamsi">
+                                <input type="radio" name="item-diamond" id="item32" title-diamond="Var">
+                                <input type="radio" name="item-diamond" id="item33" title-diamond="Yox">
+
+                            </summary>
+                            <ul class="selector-list">
+                                <li>
+                                    <label class="selector-label" for="item31">Hamsi</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item32">Var</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item33">Yox</label>
+                                </li>
+
+
+                            </ul>
+                        </details>
+
+                    </td>
+                    <td style="margin-right: 60px;">
+
+                        <label class="filter-header" id="gColor">Qizil rengi : <span id="selected_color_text"></span></label>
+                        <div class="radio-filter">
+                            <input type="checkbox" class="radio-filter_input color" name="g-color" id="g-color1">
+                            <label class="radio-filter_label" for="g-color1">Ag</label>
+                            <input type="checkbox" class="radio-filter_input color" name="g-color" id="g-color2"><label class="radio-filter_label" for="g-color2">Sari</label>
+                            <input type="checkbox" class="radio-filter_input color" name="g-color" id="g-color3"><label class="radio-filter_label" for="g-color3">Rose</label>
+                        </div>
+
+                    </td>
+                    <td>
+                        <label class="filter-header" style="margin-bottom: 8px;">Qiymət <span class="fltr-header-detail">(Azn)</span>: </label>
+                        <div class="input_number_div">
+                            <input class="input_number" type="number" name="min-price" placeholder="Min" id="input_number_min">
+                            <input class="input_number" type="number" name="min-price" placeholder="Max" id="">
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <details class="custom-select loc">
+                            <summary class="radios">
+                                <input type="radio" name="item-loc" id="default" title-loc="Ticarət Mərkəzi" checked>
+                                <input type="radio" name="item-loc" id="item11" title-loc="Ticarət mərkəzləri">
+                                <input type="radio" name="item-loc" id="item12" title-loc="Moska T/M">
+                                <input type="radio" name="item-loc" id="item13" title-loc="Mərkəzi Univermaq T/M">
+                                <input type="radio" name="item-loc" id="item14" title-loc="Laçın T/M">
+                                <input type="radio" name="item-loc" id="item15" title-loc="Diger
+                ">
+                            </summary>
+                            <ul class="selector-list">
+
+                                <li>
+                                    <label class="selector-label" for="item12">Moska T/M</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item13">Mərkəzi Univermaq T/M</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item14">Laçın T/M</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item15">Diger</label>
+                                </li>
+                            </ul>
+                        </details>
+
+                    </td>
+                    <td>
+                        <details class="custom-select delivery">
+                            <summary class="radios">
+                                <input type="radio" name="item-delivery" id="default" title-delivery="Catdrilma" checked>
+                                <input type="radio" name="item-delivery" id="item21" title-delivery="Hamsi">
+                                <input type="radio" name="item-delivery" id="item22" title-delivery="Var">
+                                <input type="radio" name="item-delivery" id="item23" title-delivery="Yox">
+                            </summary>
+                            <ul class="selector-list">
+
+
+                                <li>
+                                    <label class="selector-label" for="item21">Hamsi</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item22">Var</label>
+                                </li>
+                                <li>
+                                    <label class="selector-label" for="item23">Yox</label>
+                                </li>
+
+                            </ul>
+                        </details>
+
+                    </td>
+                    <td>
+                        <div class="submit-div">
+                            <button class="filter-sumbit" type="submit">Axtar</button>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+
+
+
+        </div>
+
+    </header>
+
+
+    @RenderBody()
+
+
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @*<script src="~/Main/global.js"></script>*@
+    <script src="~/Main/productPage.js"></script>
+    <script src="~/Main/editstore.js"></script>
+    <script src="~/Main/editUser.js"></script>
+    <script src="~/admin/assets/libs/sweetalert/sweetalert.min.js"></script>
+    <script src="~/admin/assets/libs/toastr.js/toastr.min.js"></script>
+    <script src="~/Main/swiper/swiper-bundle.min.js"></script>
+    @RenderSection("js", required: false)
+
+    <!-- Parcalanmish Js-->
+
+    <script src="~/Main/JS files/add-product.js"></script>
+    <script src="~/Main/JS files/advertisement.js"></script>
+    <script src="~/Main/JS files/be-premium.js"></script>
+    <script src="~/Main/JS files/Carousel.js"></script>
+    <script src="~/Main/JS files/diamondCount.js"></script>
+    <script src="~/Main/JS files/filterShower.js"></script>
+    <script src="~/Main/JS files/hamburgerMenu.js"></script>
+    <script src="~/Main/JS files/followUser.js"></script>
+    <script src="~/Main/JS files/productCarousel.js"></script>
+    <script src="~/Main/JS files/removeEntity.js"></script>
+    <script src="~/Main/JS files/someDetails.js"></script>
+    <script src="~/Main/JS files/wallet.js"></script>
+
+
+    <script>
+
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        }
+        else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+                                // ]]>
+    </script>
+</body>
+</html>

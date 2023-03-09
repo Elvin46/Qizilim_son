@@ -1,0 +1,276 @@
+﻿@model MainViewModel
+
+
+@{ Layout = "_LayoutStore"; }
+
+
+
+
+
+
+<div class="banner">
+    <div id="banner" class="banner-shop-page owl-carousel owl-theme">
+        @foreach (var item in Model.QizilimUser)
+        {
+            <div class="swiper-slide">
+                <div class="brands-carousel-img">
+                    <a asp-controller="store" asp-action="storesingle" asp-route-id="@item.Id" style="text-decoration: none;">
+                        <img class="sr-img-brand" src="~/photouploads/Shopimages/@item.ProfileImg" alt="">
+                        <span class="brands-store-name">@item.shopName</span>
+                    </a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<div class="shop-details-main-div">
+    <div class="shop-details-img-follow-div">
+        <div class="shop-img-div">
+            <div class="shop-img">
+
+                <img class="shop-page-img" src="~/photouploads/ShopImages/@ViewBag.Shop.ProfileImg" alt="">
+            </div>
+            @if (User.Identity.Name != null && User.IsInRole("User") && ViewBag.Follow == false)
+            {
+                <div class="follow-button-div">
+                    <button class="follow-button-buton" id="follow-button">
+                        <div id="follow-button-svg-div">
+
+
+                        </div>Follow
+                    </button>
+                </div>
+                <input style="display: none;" value="@ViewBag.Shop.Id" id="shopId" />
+            }else if(User.Identity.Name != null && User.IsInRole("User") && ViewBag.Follow == true)
+            {
+                <div class="follow-button-div">
+                    <button class="follow-button-buton " style="background-color: green !important;" id="follow-button">
+                        <div id="follow-button-svg-div">
+
+
+                        </div>Followed
+                    </button>
+                </div>
+                <input style="display: none;" value="@ViewBag.Shop.Id" id="shopId" />
+            }
+        </div>
+    </div>
+    <div class="shop-details-name-description">
+        <div class="shop-name-div-main">
+            <span class="shop-name-div"><u>@ViewBag.Shop.shopName</u></span>
+        </div>
+        <div class="follower-counter-div">
+            <span class="follower-counter-span" id="follower-counter">@ViewBag.Shop.FollowerCount</span><span class="follower-word-span">Follower</span>
+        </div>
+        <div class="shop-description-div">
+            <div class="shop-description">
+                <span>@ViewBag.Shop.aboutShop</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="shop-contact-details-div">
+        <div class="shop-contact-loaction">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
+                    <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z" />
+                </svg> @ViewBag.Shop.shopLocation
+            </span>
+        </div>
+        <div class="shop-contact-header">
+            <span>Əlaqə məlumatları :</span>
+        </div>
+        <div class="shop-contact-details">
+            <ul class="shop-page-contact-list-ul">
+
+                <li class="shop-page-contacts-li">
+                    <a href="#">
+                        <img class="shop-list-li-img" src="../../Main/images/asist-imgs/phone.png" alt="">
+                        @ViewBag.Shop.PhoneNumber
+
+
+                    </a>
+                </li>
+
+                <li class="shop-page-contacts-li">
+                    <a href="#">
+                        <img class="shop-list-li-img" src="../../Main/images/asist-imgs/whatsapp-svgrepo-com.svg" alt="">
+                        @ViewBag.Shop.whatsappNumber
+
+                    </a>
+                </li>
+
+                <li class="shop-page-contacts-li">
+                    <a href="#">
+                        <img class="shop-list-li-img" src="../../Main/images/asist-imgs/instagram-svgrepo-com.svg" alt="">
+                        @ViewBag.Shop.instagramLink
+                    </a>
+                </li>
+
+                <li class="shop-page-contacts-li">
+                    <a href="#">
+                        <img class="shop-list-li-img" src="../../Main/images/asist-imgs/tiktok-icon-white-1-logo-svgrepo-com.svg" alt="">
+                        @ViewBag.Shop.tiktokLink
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="premium-products-shop">
+    <div class="vip-child-div">
+        <div class="vip-text-premium-shop">Premium elanlar</div>
+         <div class="all-vip-btn"><button asp-controller="homepage" asp-action="vipproducts" class="btn-shw-all-vip">Butun Vip Elanlar</button></div> 
+    </div>
+    <div class="premium">
+
+        @foreach (var item in Model.Products.OrderByDescending(p => p.IreliCekilmisProduct == true))
+        {
+    @if (item.PremiumProduct)
+    {
+        <a asp-controller="Store" asp-action="ProductSingle" asp-route-id="@item.Id" style="text-decoration: none;">
+            <div class="container">
+
+                <div class="image">
+                    <img src="~/photouploads/ProductImages/@item.ProductImages.FirstOrDefault().Image.Path" alt="">
+                </div>
+                <div class="info">
+
+                    <div class="price-vip"><span>@item.Price AZN</span><i class="fa-solid fa-gem" style="color: #C1957C;"></i></div>
+
+                    <div class="prob-weight-div">
+
+                        <div class="prob">
+                            @item.ProductEyar.FirstOrDefault().Eyar.EyarOlcusu
+                        </div>
+                        <div class="weight">@item.Weight gr</div><span class="sep-w-c">/</span>
+                        @if (item.HasDiamond)
+                        {
+                            <div class="carat">@item.CountDiamond ct</div>
+                        }
+
+                    </div>
+                    <div class="title-of-product">@item.aboutProduct.HtmlToPlainText().ToEllipse(20)</div>
+
+                    <div class="time">Bakı, @item.CreatedDate.ToString("MMM d, yyyy")</div>
+                </div>
+            </div>
+        </a>
+    }}
+
+
+
+    </div>
+
+</div>
+
+<div class="vip-products-text-area">
+    <div class="vip-child-div">
+        <div class="vip-text">Mağazanın elanları</div>
+        <div class="all-vip-btn"><button class="btn-shw-all-vip">Butun Vip Elanlar</button></div>
+    </div>
+
+</div>
+
+<div class="praducts">
+
+    @foreach (var item in Model.Products.OrderByDescending(p => p.IreliCekilmisProduct == true))
+    {
+        if (item.PremiumProduct)
+        {
+            continue;
+        }
+        else
+        {
+            <a asp-controller="Store" asp-action="ProductSingle" asp-route-id="@item.Id" style="text-decoration: none;">
+                <div class="container">
+
+                    <div class="image">
+                        <img src="~/photouploads/ProductImages/@item.ProductImages.FirstOrDefault().Image.Path" alt="">
+                    </div>
+                    <div class="info">
+
+                        <div class="price-vip"><span>@item.Price AZN</span></div>
+
+                        <div class="prob-weight-div">
+
+                            <div class="prob">
+                                @item.ProductEyar.FirstOrDefault().Eyar.EyarOlcusu
+                            </div>
+                            <div class="weight">@item.Weight gr</div><span class="sep-w-c">/</span>
+                            @if (item.HasDiamond)
+                            {
+                                <div class="carat">@item.CountDiamond ct</div>
+                            }
+
+                        </div>
+                        <div class="title-of-product">@item.aboutProduct.HtmlToPlainText().ToEllipse(20)</div>
+
+                        <div class="time">Bakı, @item.CreatedDate.ToString("MMM d, yyyy")</div>
+                    </div>
+                </div>
+            </a>
+        }
+
+    }
+
+
+
+
+
+</div>
+
+
+@section js {
+    <script>
+    var followBtn = document.querySelector('#follow-button')
+
+    followBtn.addEventListener("click", function (e) {
+        e.preventDefault()
+        var shopId = document.querySelector('#shopId').value
+
+        console.log(shopId)
+        console.log("yoxlama")
+                $.ajax({
+                    url: "@Url.Action("FollowTheUser", "Store")",
+                    data: {
+                        shopId: shopId
+                    },
+
+
+                    dataType: "json",
+                    type: "post",
+                    success: function (data) {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        }
+                    }
+
+                })
+
+    })
+
+    //function followReaction() {
+    //    document.getElementById("follow-button").classList.toggle("follow-button-buton-followed")
+    //    document.getElementById("follow-button").classList.toggle("follow-button-buton")
+    //    const followButton = document.getElementById("follow-button")
+    //    let countFollower = Number(document.getElementById("follower-counter").textContent)
+    //    if (document.getElementById("follow-button").classList[0] == "follow-button-buton-followed") {
+    //        followButton.innerHTML = 'Followed'
+
+    //    }
+    //    else {
+
+    //        followButton.innerHTML = 'Follow'
+    //    }
+    //    document.getElementById("follower-counter").innerHTML = countFollower
+
+    //}
+    </script>
+}

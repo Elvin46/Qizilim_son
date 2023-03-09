@@ -1,0 +1,89 @@
+﻿@model MainViewModel
+
+
+
+
+<div class="sr-area-div swiper mySwiper">
+
+    <div class="sr-content swiper-wrapper">
+        @foreach (var item in Model.QizilimUser)
+        {
+            <div class="swiper-slide">
+                <div class="brands-carousel-img">
+                    <a asp-controller="store" asp-action="storesingle" asp-route-id="@item.Id" style="text-decoration: none;">
+                        <img class="sr-img-brand" src="~/photouploads/Shopimages/@item.ProfileImg" alt="">
+                        <span class="brands-store-name">@item.shopName</span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</div>
+<div class="vip-products-text-area">
+    <div class="vip-child-div">
+        <div class="vip-text">Premium elanlar</div>
+        <div class="all-vip-btn"><button asp-controller="homepage" asp-action="vipproducts" class="btn-shw-all-vip">Butun Vip Elanlar</button></div>
+    </div>
+
+</div>
+
+
+@{int addd = 0; }
+<div class="praducts">
+    @foreach (var item in Model.Products.OrderByDescending(p => p.IreliCekilmisProduct == true))
+    {
+        addd++;
+
+        if (addd % 8 == 0)
+        {
+            <div class="banner">
+                <div id="banner" class="banner-shop-page owl-carousel owl-theme">
+                    @foreach (var reklam in Model.Advertisement)
+                    {
+                        <div class="banner-div">
+                            <img class="banner-area" src="~/photouploads/images/@reklam.Image" alt="">
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+
+        }
+<a asp-controller="Store" asp-action="ProductSingle" asp-route-id="@item.Id" style="text-decoration: none;">
+    <div class="container">
+
+        <div class="image">
+            <img src="~/photouploads/ProductImages/@item.ProductImages.FirstOrDefault().Image.Path" alt="">
+        </div>
+        <div class="info">
+
+            <div class="price-vip"><span>@item.Price AZN</span><i class="fa-solid fa-gem" style="color: #C1957C;"></i></div>
+
+            <div class="prob-weight-div">
+
+                <div class="prob">
+                    @item.ProductEyar.FirstOrDefault().Eyar.EyarOlcusu
+                </div>
+                <div class="weight">@item.Weight gr</div><span class="sep-w-c">/</span>
+                @if (item.HasDiamond)
+                {
+                    <div class="carat">@item.CountDiamond ct</div>}
+
+            </div>
+            <div class="title-of-product">@item.aboutProduct.HtmlToPlainText().ToEllipse(20)</div>
+
+            <div class="time">Bakı, @item.CreatedDate.ToString("MMM d, yyyy")</div>
+        </div>
+    </div>
+</a>
+}
+</div>
+  </div>
+
+
+

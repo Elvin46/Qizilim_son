@@ -1,0 +1,185 @@
+﻿@model addingProductViewModel
+@{
+    Layout = "_LayoutStore";
+}
+
+@section css {
+    <style>
+        .ck-content {
+            min-height: 250px;
+        }
+
+        .photo-viewer {
+            display: block !important;
+            width: 300px;
+            height: 200px;
+            background-position: center;
+            background-size: cover;
+            object-fit: cover;
+            background-image: url('/photouploads/images/file-upload.jpg');
+            cursor: pointer;
+        }
+
+        #file {
+            display: block;
+        }
+    </style>
+}
+
+<div class="product-add-div">
+    <h3 class="add-prdct-h3">Elan əlavə et</h3>
+    <form class="product-add-form" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*<label for="file1" class="control-label">Sekil</label> <br />*@
+        @*<div class="form-group">
+                <label class="photo-viewer" id="file-viewer" for="files" class="control-label"></label>
+                <input name="files" id="file" type="file" class="form-control" onchange="readFile(this)" />
+                <span asp-validation-for="files" class="text-danger"></span>
+            </div>*@
+        <div class="product-detail-content">
+            <div class="product-detail-header">
+                <label asp-for="Name">Elan başlığı</label>
+            </div>
+            <div class="product-deatil-it">
+                <input asp-for="Name" type="text" class="add" name="Name" id="" maxlength="50" />
+            </div>
+        </div>
+
+        <div class="add-img-ads">
+            <label for="images" class="drop-container">
+                <span class="drop-title">Şəkil əlavə et</span>
+                (max : 12)
+                <input name="files" id="images" type="file" class="form-control" onchange="readFile(this)" multiple />
+                @*<input name="files" asp-for="files" type="file"
+                    class="file-field"
+                    id="images"
+                    accept="image/*"
+                    multiple
+                    required />*@
+                <span asp-validation-for="files" class="text-danger"></span>
+            </label>
+            <div class="add-img-container">
+
+            </div>
+        </div>
+        <div class="product-detail-content">
+            <div class="product-detail-header">
+                <label asp-for="Kateqoriya">Kateqoriya</label>
+            </div>
+            <div class="product-deatil-it">
+                <select asp-for="Kateqoriya" name="Kateqoriya" class="form-select">
+                    <option selected disabled>Seçilməyib</option>
+                    @foreach (var item in ViewBag.Kateqoriya)
+                    {
+                        <option>@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="product-detail-content" id="addFormProb">
+            <div class="product-detail-header">
+                <label asp-for="EyarOlcusuId">Əyyar:</label>
+            </div>
+
+            <div class="product-deatil-it">
+                <select asp-for="EyarOlcusuId" name="EyarOlcusuId" class="form-select">
+                    <option selected disabled value="0">Seçilməyib</option>
+                    @foreach (var item in ViewBag.Eyyar)
+                    {
+                        <option value="@item.Id">@item.EyarOlcusu</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="product-detail-content" id="addFormProb">
+            <div class="product-detail-header">
+                <label asp-for="ColorsId">Qızıl rəngi:</label>
+            </div>
+
+            <div class="product-deatil-it">
+                <select asp-for="ColorsId" name="ColorsId" class="form-select">
+                    <option selected disabled value="0">Seçilməyib</option>
+                    @foreach (var item in ViewBag.Colors)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="product-detail-content" id="addFormWeight">
+            <div class="product-detail-header">
+                <label asp-for="Weight">Çəki</label>
+            </div>
+            <div class="product-deatil-it">
+                <input asp-for="Weight" type="number" name="Weight" id="" class="add" /><label class="detail-form">
+                    ,qram
+                </label>
+            </div>
+        </div>
+        <div class="product-detail-content">
+            <div class="product-detail-header">
+                <label>
+                    <input asp-for="HasDiamond" type="checkbox"
+                           name="HasDiamond"
+                           id="diamonCheck"
+                           onclick="EnableDisableTextBox(this)" />
+                    Brilliant
+                </label>
+            </div>
+            <div class="product-deatil-it">
+                <input asp-for="CountDiamond" type="number"
+                       name="CountDiamond"
+                       id="addDiamondCount"
+                       class="add"
+                       disabled="disabled" /><label class="detail-form"> ,ct</label>
+            </div>
+        </div>
+
+        <div class="product-detail-content">
+            <div class="product-detail-header">
+                <label asp-for="aboutProduct">Ətraflı məlumat</label>
+            </div>
+            <div class="product-deatil-it">
+                <textarea asp-for="aboutProduct" name="aboutProduct" id="" cols="30" rows="10"></textarea>
+            </div>
+        </div>
+
+        <div class="product-detail-content">
+            <div class="product-detail-header">
+                <label asp-for="Price">Qiymət</label>
+            </div>
+            <div class="product-deatil-it">
+                <input asp-for="Price" type="Price" name="Price" id="" /><label class="detail-form">
+                    ,AZN
+                </label>
+            </div>
+        </div>
+
+        <div class="add-prdct-btn-div">
+            <input type="submit" value="Elani əlavə et" class="add-prdct-btn" />
+        </div>
+    </form>
+
+</div>
+
+@section js {
+    <script>
+        function readFile(input) {
+            let file = input.files[0];
+
+            let reader = new FileReader();
+
+            reader.onload = function () {
+                console.log(reader.result);
+
+                $('#file-viewer').css('background-image', `url(${reader.result})`);
+            };
+
+            reader.onerror = function () {
+                console.log(reader.error);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+}

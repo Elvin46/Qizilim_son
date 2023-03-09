@@ -1,0 +1,192 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Main/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/Main/global.css">
+    <!-- <link rel="stylesheet" href="~/Main/search.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Əsas Səhifə | Qızılımaz-da elan yerləşdirib, paylaşa bilərsiniz">
+    <meta name="keywords" content="Qizilim.az,Əsas Səhifə">
+    @*<!- Open Graph data->*@
+    <meta property="og:title" content="Qızılım.az" />
+    <meta property="og:description" content="Əsas Səhifə | Qızılımaz-da elan yerləşdirib, paylaşa bilərsiniz" />
+    <title>Qızılım.az</title>
+    <!-- Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight&family=Raleway:ital,wght@0,800;1,300&family=Ubuntu:wght@500&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+   
+
+
+
+    <div class="verify-store">
+        <h3>
+            Verification Code:
+        </h3>
+        <form method="post">
+            <div class="text-danger" asp-validation-summary=ModelOnly></div>
+            <div class="form-group">
+                <input type="number" id="passcode" name="passcode" min="1" max="999999" style="
+                    width: 205px;
+                    height: 30px;
+                    margin-bottom: 20px;
+                    border-radius: 5px;
+                    border: 2px solid #c1957c;
+                    outline: none;">
+            </div>
+            <div class="button-box" style="
+                display: flex;
+                justify-content: space-between;">
+                <a class="back-main-page" asp-controller="account" asp-action="signout">
+                    <button>
+                        Ana səhifəyə geri dön
+                    </button>
+                </a>
+                <button type="submit" class="default-btn" style="
+                    cursor: pointer;
+                    background-color: limegreen;
+                    color: #ffffff;
+                    border: 0;
+                    padding: 8px;
+                    border-radius: 10px;">Submit</button>
+                <div class="text-center mt-4 font-weight-light">
+            </div>
+        </form>
+        
+
+    </div>
+
+
+
+
+
+
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Main/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Index Js-->
+    <!--<script src="~/Main/global.js"></script>-->
+    <!-- Parcalanmish Js-->
+    <script src="~/Main/JS files/filterShower.js"></script>
+    <script src="~/Main/JS files/hamburgerMenu.js"></script>
+    <script src="~/Main/JS files/Carousel.js"></script>
+    <script src="~/Main/JS files/someDetails.js"></script>
+    <script src="~/Main/JS files/removeEntity.js"></script>
+    <script src="~/Main/JS files/be-premium.js"></script>
+    <script src="~/Main/JS files/productCarousel.js"></script>
+
+
+    <script>
+
+        document.querySelector('.filter-sumbit').addEventListener("click", function (e) {
+            e.preventDefault()
+
+            var selectedTitle = $("input[name='item-type']:checked").attr('title-type');
+            var selectedDiamond = $("input[name='item-diamond']:checked").attr('title-diamond');
+            var selectedLoc = $("input[name='item-loc']:checked").attr('title-loc');
+            var selectedDelivery = document.querySelector('input[name="item-delivery"]:checked').getAttribute('title-delivery');
+
+            if (selectedTitle === "Nov") {
+                selectedTitle == null;
+            }
+
+            if (selectedLoc === "Ticarət Mərkəzi") {
+                selectedLoc == null;
+            }
+
+            var diamondValue = null;
+            if (selectedDiamond === "Var") {
+                diamondValue = true;
+            } else if (selectedDiamond === "Yox") {
+                diamondValue = false;
+            } else if (selectedDiamond === "Brilliant") {
+                diamondValue = null;
+            }
+
+            var deliveryValue = null;
+            if (selectedDelivery === "Var") {
+                deliveryValue = true;
+            } else if (selectedDelivery === "Yox") {
+                deliveryValue = false;
+            } else if (selectedDiamond === "Catdirilma") {
+                deliveryValue = null;
+            }
+
+            var selectedColors = [];
+            $('input[name="g-color"]:checked').each(function () {
+                selectedColors.push($(this).next('label').text());
+            });
+            var selectedEyar = [];
+            $('input[name="diamond"]:checked').each(function () {
+                var label = $(this).next('label').text();
+                selectedEyar.push(label.trim());
+            });
+            var minWeight = document.querySelector('.w-input_number_min')?.value
+            var maxWeight = document.querySelector('.w-input_number_max')?.value
+            var minPrice = document.querySelector('.p-input_number_min')?.value
+            var maxPrice = document.querySelector('.p-input_number_max')?.value
+
+            console.log(selectedTitle)
+            console.log(selectedDiamond)
+            console.log(selectedLoc)
+            console.log(selectedDelivery)
+            console.log(selectedColors)
+            console.log(selectedEyar)
+            console.log(minWeight)
+            console.log(maxWeight)
+            console.log(minPrice)
+            console.log(maxPrice)
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("searchProduct","HomePage")",
+                data: {
+                    selectedTitle: selectedTitle,
+                    selectedDiamond: diamondValue,
+                    selectedLoc: selectedLoc,
+                    selectedDelivery: deliveryValue,
+                    selectedColors: selectedColors,
+                    selectedEyar: selectedEyar,
+                    minWeight: minWeight,
+                    maxWeight: maxWeight,
+                    minPrice: minPrice,
+                    maxPrice: maxPrice
+                },
+                success: function (result) {
+                    // Handle success response
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                }
+            });
+
+        })
+    </script>
+</body>
+
+</html>
+

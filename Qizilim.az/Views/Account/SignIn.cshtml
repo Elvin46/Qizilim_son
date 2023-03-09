@@ -1,0 +1,247 @@
+﻿@{ Layout = "_Layoutsignin"; }
+
+@model SigninCommand
+
+
+
+<div class="login_register_forgot">
+
+    <div class="center">
+        <h1>Daxil ol</h1>
+        <form method="post" asp-controller="account" asp-action="signin">
+            <div class="txt_field">
+                <input asp-for="Username" class="txt-field-input" id="emailText" type="text" required>
+                <label class="txt-field-label" asp-for="Username">Email ünvanı</label>
+                <span asp-validation-for="Username" style="color: red; font-size: 10px; border: none; margin-bottom: 10px;" class="text-danger" ></span>
+            </div>
+            <div class="txt_field" style="margin-bottom: 5px;">
+                <input asp-for="Password" class="txt-field-input" type="password" required>
+                <label class="txt-field-label" asp-for="Password" >Şifrə</label>
+                <span asp-validation-for="Password" style="color: red; font-size: 10px; border: none; margin-bottom: 10px;" class="text-danger"></span>
+
+            </div>
+
+            <div class="pass">
+                <a id="forgot_password">
+                    Şifrəni unutdum
+                </a>
+            </div>
+            <input type="submit" id="submit" value="Daxil ol" style="display: none;">
+            <input type="submit" value="Daxil ol">
+            <div class="signup_link">
+                Hesabin yoxdur? <a class="register-btn" asp-controller="Register" asp-action="Register">Qeydiyyatdan kec</a>
+            </div>
+        </form>
+    </div>
+    <div id="center" class="center">
+        <h1>Şifrəni bərpa et</h1>
+        <form method="post" action="recover-number.html">
+            <div class="txt_field">
+                <input class="txt-field-input" type="text" required>
+                <span></span>
+                <label class="txt-field-label">Telefon nömrəsi</label>
+            </div>
+
+            <input id="psswrd-recover-btn" type="submit" value="Bərpa mesajı al">
+            <div class="signup_link">
+                Hesabin yoxdur? <a href="#" class="register-btn">Qeydiyyatdan kec</a>
+            </div>
+        </form>
+    </div>
+    @*<div class="center">
+        <h1>Qeydiyyat</h1>
+        <form method="post">
+            <div class="txt_field">
+                <input class="txt-field-input" type="text" id="ad" required>
+                <label class="txt-field-label">Ad</label>
+
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="text" id="soyad" required>
+                <span></span>
+                <label class="txt-field-label">Soyad</label>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="text" id="username" required>
+                <span></span>
+                <label class="txt-field-label">Istifadəçi adı</label>
+            </div>
+            <label class="busy-user" style="display: none;">Bu istifadeci adi basqa istifaci terefinden istifaed olunur</label>
+            <div class="txt_field">
+                <input class="txt-field-input epoct" id="email" type="email" asp-for="User.Email" required>
+                <span asp-validation-for="User.Email" style="color: red; font-size: 10px; border: none; margin-bottom: 10px;" class="text-danger" ></span>
+                <label class="txt-field-label" id="email_txt" asp-for="User.Email">E-mail</label>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="tel" id="phoneNumber" maxlength="9" asp-for="User.PhoneNumber" required>
+                <span asp-validation-for="User.PhoneNumber" style="color: red; font-size: 10px; border: none; margin-bottom: 10px;" class="text-danger" ></span>
+                <label class="txt-field-label" asp-for="User.PhoneNumber">Telefon nömrəsi</label>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="password" id="password" required>
+                <span></span>
+                <label class="txt-field-label">Şifrə</label>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" id="passwordAgain" type="password" required>
+                <span></span>
+                <label class="txt-field-label">Şifrə təkrar</label>
+            </div>
+
+            <div class="shop-checkbox">
+                <input type="checkbox" name="shopInfoRegister" id="shopCheckbox" onclick=shopInfoDetails() value="0"><label class="shop-checkbox-label">Mağaza kimi qeydiyyatdan keç</label>
+            </div>
+
+
+            <div class="txt-field-shop-div" id="shopInfoRegister">
+                <details class="custom-select reg-loc">
+                    <summary class="radios">
+
+                        <input type="radio" name="item" id="default" reg-loc-title="Ticarət Mərkəzi" checked>
+                        @{ var num = 1; }
+                        @foreach (var item in ViewBag.Center)
+                        {
+
+            <input type="radio" class="radio" name="item" id="@num" reg-loc-title="@item.Name">num++;
+                        }
+                        <input type="radio" name="item" id="item115" reg-loc-title="Diger">
+                    </summary>
+                    <ul class="selector-list">
+                        @{ var num2 = 1; }
+                        @foreach (var item in ViewBag.Center)
+                        {
+
+            <li>
+                <label class="selector-label" for="@num2">@item.Name</label>
+            </li>num2++;
+                        }
+                        <li>
+                            <label class="selector-label" for="item115">Diger</label>
+                        </li>
+                    </ul>
+                </details>
+                <div class="txt_field">
+                    <input class="txt-field-input" id="shopName" type="text" required>
+                    <span></span>
+                    <label class="txt-field-label">Mağaza adı</label>
+                </div>
+                <div class="txt_field">
+                    <input class="txt-field-input" id="shopPhone" type="tel" required>
+                    <span></span>
+                    <label class="txt-field-label">Mağaza əlaqə nömrəsi</label>
+                </div>
+            </div>
+
+
+            <!-- <div class="pass">Şifrəni unutdum</div> -->
+            <input type="submit" id="ireli" value="İrəli">
+            <div class="signup_link">
+                Hesabin var? <a href="#" class="signin-btn">Daxil ol</a>
+            </div>
+        </form>
+    </div>*@
+</div>
+
+
+@section js {
+    <script>
+    var submitRegister = document.getElementById("ireli")
+
+    submitRegister.addEventListener("click", function (e) {
+        e.preventDefault()
+
+        console.log("salam");
+        var name = document.getElementById("ad").value;
+        var surname = document.getElementById("soyad").value;
+        var username = document.getElementById("username").value
+        var email = document.querySelector(".epoct").value
+        var phoneNumber = document.getElementById("phoneNumber").value
+        var password = document.getElementById("password").value
+        var passwordAgain = document.getElementById("passwordAgain").value
+        var shopName = document.getElementById("shopName").value
+        var shopPhone = document.getElementById("shopPhone").value
+        var checkBox = document.querySelector('#shopCheckbox');
+
+        var radioButtons = document.getElementsByName("item");
+        var selectedLocation;
+        for (var i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+                selectedLocation = radioButtons[i].getAttribute("reg-loc-title");
+                break;
+            }
+        }
+
+        console.log(name);
+        console.log(surname);
+        console.log(username);
+        console.log(email);
+        console.log(phoneNumber);
+        console.log(password);
+        console.log(passwordAgain);
+        console.log(selectedLocation);
+        console.log(shopName);
+        console.log(shopPhone);
+        console.log(checkBox.checked);
+
+
+        if (password === passwordAgain) {
+            if (checkBox.checked) {
+                $.ajax({
+                    url: "@Url.Action("RegisterShop","Register")",
+                    data: {
+                        name: name,
+                        surname: surname,
+                        username: username,
+                        email: email,
+                        phoneNumber: phoneNumber,
+                        password: password,
+                        selectedLocation: selectedLocation,
+                        shopName: shopName,
+                        shopPhone: shopPhone
+                    },
+
+
+                    dataType: "json",
+                    type: "post",
+                    success: function (data) {
+                        if (data.status == 200) {
+                            location.reload(true)
+                            location.pathname = "account/verifyRegister"
+                        }
+                    }
+
+                })
+            }
+            else {
+                $.ajax({
+                    url: "@Url.Action("RegisterUser","Register")",
+                    data: {
+                        name: name,
+                        surname: surname,
+                        username: username,
+                        email: email,
+                        phoneNumber: phoneNumber,
+                        password: password,
+                        passwordAgain: passwordAgain
+                    },
+
+
+                    dataType: "json",
+                    type: "post",
+                    success: function (data) {
+                        if (data.status == 200) {
+                            location.reload(true)
+                            location.pathname = "register/verifyEmail"
+                        }
+                    }
+
+                })
+            }
+        }
+        else {
+            window.alert("parollar eyni deyil!")
+        }
+    })
+    </script>
+}
+

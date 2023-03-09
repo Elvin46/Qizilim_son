@@ -1,0 +1,125 @@
+﻿@{Layout = "_Layoutsignin";}
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+@{List<Centers> centers = ViewBag.Center;}
+@model RegisterFormModel;
+
+
+<div class="login_register_forgot">
+    <div class="center">
+        <h1>Qeydiyyat</h1>
+        <form method="post" enctype="multipart/form-data" asp-controller="Register" asp-action="Register">
+            <div class="text-danger" style="font-size:12px;" asp-validation-summary="ModelOnly"></div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="text" id="ad" asp-for="Name" required>
+                <label class="txt-field-label" asp-for="Name">Ad</label>
+            <span style="font-size:12px;" asp-validation-for="Name" class="text-danger" ></span>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="text" id="soyad" asp-for="Surname" required>
+                <label class="txt-field-label" asp-for="Surname">Soyad</label>
+            <span style="font-size:12px;" asp-validation-for="Surname" class="text-danger" ></span>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="text" id="username" asp-for="Username" required>
+                <label class="txt-field-label" asp-for="Username">Istifadəçi adı</label>
+            <span style="font-size:12px;" asp-validation-for="Username" class="text-danger" ></span>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input epoct" id="email" type="email" asp-for="Email" required>
+                <label class="txt-field-label" id="email_txt" asp-for="Email">E-mail</label>
+            <span style="font-size:12px;" asp-validation-for="Email"  class="text-danger" ></span>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="tel" id="phoneNumber" maxlength="9" asp-for="PhoneNumber" required>
+                <label class="txt-field-label" asp-for="PhoneNumber">Telefon nömrəsi</label>
+            <span style="font-size:12px;" asp-validation-for="PhoneNumber"  class="text-danger" ></span>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" type="password" id="password" asp-for="Password" required>
+                <label class="txt-field-label" asp-for="Password">Şifrə</label>
+            <span style="font-size:12px;" asp-validation-for="Password" class="text-danger" ></span>
+            </div>
+            <div class="txt_field">
+                <input class="txt-field-input" id="passwordAgain" type="password" asp-for="ConfrimPassword" required>
+                <label class="txt-field-label" asp-for="ConfrimPassword">Şifrə təkrar</label>
+                <span style="font-size:12px;" asp-validation-for="ConfrimPassword" class="text-danger " ></span>
+            </div>
+            <div class="shop-checkbox">
+                <input type="checkbox" name="isShop" id="shopCheckbox" class="isShop" onclick=shopInfoDetails() asp-for="isShop">
+                <label class="shop-checkbox-label" asp-for="isShop">Mağaza kimi qeydiyyatdan keç</label>
+            </div>
+            <div class="txt-field-shop-div" id="shopInfoRegister">
+                
+            </div>
+            <button type="submit" id="ireli" value="İrəli">İrəli</button>
+            <div class="signup_link">
+                Hesabin var? <a class="signin-btn" asp-controller="Account" asp-action="Signin">Daxil ol</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section js {
+    <script>
+        var checkBox = document.querySelector(".isShop");
+      const parent = document.getElementById("shopInfoRegister");
+    function shopInfoDetails() {
+      // Get the checkbox
+      
+      // Get the output text
+
+      // If the checkbox is checked, display the output text
+    if (checkBox.checked == true) {
+        console.log("salam");
+        document.getElementById("shopInfoRegister").innerHTML+= `
+        <details class="custom-select reg-loc">
+            <summary class="radios">
+
+                <input type="radio" name="CenterId" id="default" reg-loc-title="Ticarət Mərkəzi" checked>
+                @{ var num = 1; }
+                @foreach (var item in centers)
+                {
+                    <input asp-for="CenterId" type="radio" class="radio"  id="@num" reg-loc-title="@item.Name" value="@item.Id">num++;
+                }
+                <input type="radio" name="item" id="item115" reg-loc-title="Diger" disabled>
+            </summary>
+            <ul class="selector-list">
+                @{ var num2 = 1; }
+                @foreach (var item in centers)
+                {
+                    <li>
+                        <label class="selector-label" for="@num2">@item.Name</label>
+                    </li>num2++;
+                }
+                <li>
+                    <label class="selector-label" for="item115">Diger</label>
+                </li>
+            </ul>
+        </details>
+        <div class="txt_field">
+            @{
+                <input class="txt-field-input" id="shopName" type="text" asp-for="ShopName"   required>
+                <label asp-for="ShopName" class="txt-field-label" >Mağaza adı</label>
+                <span style="font-size:12px;" asp-validation-for="ShopName" class="text-danger " ></span>
+            }
+        </div>
+        <div class="txt_field">
+            @{
+                <input class="txt-field-input" id="shopPhone" type="tel" asp-for="ShopNumber" required>
+                <label asp-for="ShopNumber" class="txt-field-label" >Mağaza əlaqə nömrəsi</label>
+                <span style="font-size:12px;" asp-validation-for="ShopNumber" class="text-danger " ></span>
+            }
+        </div>`;
+    }else {
+        parent.replaceChildren();
+        //document.getElementById("shopInfoRegister").style.display = "none";
+
+      }
+    };
+    </script>
+}

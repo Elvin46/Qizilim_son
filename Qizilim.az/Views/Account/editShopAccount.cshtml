@@ -1,0 +1,192 @@
+﻿@model editAccountViewModel
+
+@{
+    Layout = "_LayoutStore";
+}
+
+@section css {
+    <style>
+        .ck-content {
+            min-height: 250px;
+        }
+
+        .photo-viewer {
+            display: block !important;
+            width: 300px;
+            height: 200px;
+            background-position: center;
+            background-size: cover;
+            object-fit: cover;
+            background-image: url('/photouploads/images/file-upload.jpg');
+            cursor: pointer;
+        }
+
+        #file {
+            display: none;
+        }
+    </style>
+}
+<div class="premium-popup" style="display:none;">
+
+        <div class="be-premium-menu" style="position: relative;">
+            <div class="close-popup" style="position: absolute; right: 10px; top: 10px;">
+                <img src="https://www.svgrepo.com/show/178323/cross-close.svg" width="15px" height="15px" alt="">
+            </div>
+            <h3>Elanı premium et</h3>
+
+
+            <div class="day-counter">
+                <p>Meblegi Qeyd Edin</p>
+                <input type="number" id="balance-select-option" value="1" min="1"> <span>gün</span>
+            </div>
+            <div class="button-premium">
+                <button type="button" id="acceptAdd" class="accept-btn add-wallet-accept" >
+                    <span class="accept-btn-text">Təsdiqlə</span>
+                </button>
+            </div>
+
+
+        </div>
+
+    </div>
+<div class="edit-content-main">
+    <div class="edit-header">
+        <h3>Hesab idaresi </h3>
+    </div>
+    @if (User.IsInRole("Shop"))
+    {
+        <div class="wallet-div">
+            <div class="wallet-balance">
+                @*Balans: <span>@ViewBag.userAbout.Wallet</span><span> AZN</span>*@
+            </div>
+            <div class="wallet-button">
+                <button type="button" class="wallet-button">
+                    <span class="wallet-button-icon">
+                        <!-- <i class="fa-duotone fa-credit-card"></i>
+                        <i class="fa-duotone fa-credit-card"></i> -->
+
+                        <img src="../../Main/images/asist-imgs/icons8-credit-card-60.png" alt="" srcset="">
+                    </span>
+                    <span class="wallet-button-text">
+                        <span>Balansi artır</span>
+                    </span>
+                </button>
+
+            </div>
+        </div>
+    }
+    <div class="edit-content">
+
+        <div class="left-edit">
+            <div class="edit-inputs">
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <label for="file1" class="control-label">Sekil</label> <br />
+                    <div class="form-group">
+                        <label class="photo-viewer" id="file-viewer" for="file" class="control-label"></label>
+                        <input name="file" id="file" type="file" class="form-control" onchange="readFile(this)" />
+                        <span asp-validation-for="file" class="text-danger"></span>
+                    </div>
+                    <div class="input-field">
+                        <label asp-for="shopName" for="storeName">Magaza adi : </label>
+                        <input asp-for="shopName" class="input-are" style="border: 1px solid #C1957C; border-radius: 10px;" name="shopName" type="text">
+                    </div>
+
+                    <div class="input-field">
+                        <label asp-for="shopNumber" for="storeNumber">Mağazanın Nömrəsi : </label>
+                        <input asp-for="shopNumber" class="input-are" style="border: 1px solid #C1957C; border-radius: 10px;" name="shopNumber" type="text">
+                    </div>
+
+                    <div class="input-field">
+                        <label asp-for="Email" for="storeEmail">Email : </label>
+                        <input asp-for="Email" class="input-are" style="border: 1px solid #C1957C; border-radius: 10px;" name="Email" disabled type="text">
+                    </div>
+
+                    <div class="input-field">
+                        <label asp-for="whatsappNumber" for="storeWhatsapp">Whatsapp : </label>
+                        <input asp-for="whatsappNumber" class="input-are" style="border: 1px solid #C1957C; border-radius: 10px;" name="whatsappNumber" placeholder="məs : (+994 55) 444 33 22" type="text">
+                    </div>
+
+                    <div class="input-field">
+                        <label asp-for="instagramLink" for="storeInstagram">Instagram : </label>
+                        <input asp-for="instagramLink" class="input-are" style="border: 1px solid #C1957C; border-radius: 10px;" name="instagramLink" placeholder="Link... " type="text">
+                    </div>
+
+                    <div class="input-field">
+                        <label asp-for="tiktokLink" for="storeTiktok">Tiktok : </label>
+                        <input asp-for="tiktokLink" class="input-are" style="border: 1px solid #C1957C; border-radius: 10px;" name="tiktokLink" placeholder="Link..." type="text">
+                    </div>
+                    <div class="input-field">
+                        <label asp-for="aboutShop" for="aboutShop">Mağaza Haqqında : </label> <br />
+                        <textarea asp-for="aboutShop" style="min-width: 200px; min-height: 200px;" name="aboutShop"></textarea>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="storeDelivery">Çatdrılma : </label>
+                        <div class="input-are">
+                            <label asp-for="catdirilma" for="yes">Var</label>
+                            <input asp-for="catdirilma" type="checkbox" name="catdirilma" id="yes" class="store-delivery-rad">
+                        </div>
+                    </div>
+
+
+                    <input type="submit" value="Yaddaşda saxla" class="css-button-verfiy" />
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@section js {
+    <script>
+        function readFile(input) {
+            let file = input.files[0];
+
+            let reader = new FileReader();
+
+            reader.onload = function () {
+                console.log(reader.result);
+
+                $('#file-viewer').css('background-image', `url(${reader.result})`);
+            };
+
+            reader.onerror = function () {
+                console.log(reader.error);
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+
+        const acceptAdd = document.querySelector('.add-wallet-accept');
+        acceptAdd.addEventListener('click', function () {
+            console.log("salam")
+            const countWallet = document.querySelector('#balance-select-option').value;
+            $.ajax({
+                    url: "@Url.Action("addWallet", "Account")",
+                    data: {
+                        countWallet: countWallet
+                    },
+
+
+                    dataType: "json",
+                    type: "post",
+                    success: function (data) {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        }
+                        else if (data.status == 300) {
+                            alert("Balansda kifayət qədər məbləğ yoxdur!");
+                        }
+                        else if (data.status == 100) {
+                            alert("Bu məhsul premiumdur!");
+                        }
+                    }
+
+                })
+        })
+    </script>
+}

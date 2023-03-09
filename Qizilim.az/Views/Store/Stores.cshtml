@@ -1,0 +1,145 @@
+﻿@model MainViewModel
+@{ 
+    Layout = "_LayoutStore";
+}
+<div class="sr-area-div swiper mySwiper">
+
+    <div class="sr-content swiper-wrapper">
+
+        @foreach (var item in Model.QizilimUser)
+        {
+            <div class="swiper-slide">
+                <div class="brands-carousel-img">
+                    <a asp-controller="store" asp-action="storesingle" asp-route-id="@item.Id" style="text-decoration: none;">
+                        <img class="sr-img-brand" src="~/photouploads/Shopimages/@item.ProfileImg" alt="">
+                        <span class="brands-store-name">@item.shopName</span>
+                    </a>
+                </div>
+            </div>
+        }
+
+
+
+
+    </div>
+
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</div>
+
+<!-- All stores -->
+@*<div class="vip-products-text-area">
+    <div class="vip-child-div">
+        <div class="vip-text">Premium Mağazalar</div>
+        <div class="all-vip-btn"><button class="btn-shw-all-vip">Butun Premium Mağazalar</button></div>
+    </div>
+</div>
+<div class="shops-content-area">
+
+    <div class="shops-content-area-div">
+
+        <a class="shops-content-att" asp-action="storesingle">
+            <div class="shops-content">
+                <div class="img-card-shop">
+                    <img src="~/Main/images/brands/brnd-2.jpg" alt="">
+                </div>
+                <div class="shop-name-highlight">
+                    Zumrud Jewellery <i class="fa-solid fa-gem fa-shop-premium "></i>
+                </div>
+                <div class="location-card">
+                    <img src="~/Main/images/asist-imgs/location-sign-svgrepo-com.svg" alt="">
+                    <span>Moskva T/M</span>
+                </div>
+                <div class="about-shop-card">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo maiores provident, asperiores magni culpa.
+                </div>
+                <div class="contact-card">
+                    <img src="~/Main/images/asist-imgs/phone.png" alt="">
+                    <span>
+                        : (+994 55)9019509
+                    </span>
+
+                </div>
+
+            </div>
+        </a>
+
+
+
+
+
+    </div>
+</div>*@
+<!-- Bütün mağazalar -->
+
+<div class="vip-products-text-area">
+    <div class="vip-child-div">
+        <div class="vip-text">Bütün Mağazalar</div>
+        <details class="custom-select stores-fil">
+            <summary class="radios">
+                <input type="radio" name="item-sores-fil" id="default" title-store-filter="Ticaret Merkezleri " checked>
+                <input type="radio" name="item-sores-fil" id="item41" title-store-filter="Lacin">
+                <input type="radio" name="item-sores-fil" id="item42" title-store-filter="Moskva">
+                <input type="radio" name="item-sores-fil" id="item43" title-store-filter="Merkezi">
+
+            </summary>
+            <ul class="selector-list">
+                <li>
+                    <label class="selector-label" for="item41">Lacin</label>
+                </li>
+
+                <li>
+                    <label class="selector-label" for="item42">Moskva</label>
+                </li>
+                <li>
+                    <label class="selector-label" for="item43">Merkezi</label>
+                </li>
+
+
+            </ul>
+        </details>
+    </div>
+</div>
+
+
+<div class="shops-content-area">
+
+    <div class="shops-content-area-div">
+
+        @foreach (var item in Model.QizilimUser)
+        {
+            <a class="shops-content-att" asp-controller="store" asp-action="storesingle" asp-route-id="@item.Id">
+                <div class="shops-content">
+                    <div class="img-card-shop">
+                        <img src="~/photouploads/ShopImages/@item.ProfileImg" alt="">
+                    </div>
+                    <div class="shop-name-highlight">
+                        @item.shopName
+                    </div>
+                    <div class="location-card">
+                        <img src="~/Main/images/asist-imgs/location-sign-svgrepo-com.svg" alt="">
+                        <span>@item.shopLocation</span>
+                    </div>
+                    <div class="about-shop-card">
+                        @item.aboutShop
+                    </div>
+                    <div class="contact-card">
+                        <img src="~/Main/images/asist-imgs/phone.png" alt="">
+                        <span>
+                            : @item.shopNumber
+                        </span>
+
+                    </div>
+
+                </div>
+            </a>
+        }
+
+
+
+
+
+    </div>
+</div>
+
